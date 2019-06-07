@@ -13,11 +13,12 @@
 
 Route::get('/','MainController@sqlquery');
 
+Route::post('/','MainController@indicatorquery')->name('indicatorsearch');
+
 Route::get('/index', function()
 {
     return view('index');
 });
 
-// Route::get('/search','MainController@searchquery')->name('searchroute');
 Route::get('/search/{query?}','MainController@searchquery')->name('searchroute');
 Route::get('individualvocab/{id}','MainController@individualvocab')->name('individualvocabroute');

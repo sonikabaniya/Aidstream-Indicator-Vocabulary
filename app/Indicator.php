@@ -8,4 +8,6 @@ class Indicator extends Model
 {
     //
     protected $table = 'indicator';
+
+   
 }

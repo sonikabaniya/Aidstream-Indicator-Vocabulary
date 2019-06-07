@@ -14,11 +14,16 @@
     
   </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="#">Aidstream Indicator Vocabulary</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <form class="form-inline my-2 my-lg-0" action="{{ route('indicatorsearch') }}" method="POST">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search any indicator..." aria-label="Search" name="indicatorsearch">
+       @csrf
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
         
       </nav>
       @yield('content')

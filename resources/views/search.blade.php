@@ -7,14 +7,15 @@
         <div class="input-group mb-3" style="width:30%;" >
           <select class="custom-select" id="inputGroupSelect02"  name="query1">
             <option selected style="display:none">
-            @if($query1)
+            @if($flag==0)
                 {{ $query1 }}
 
             @else
-                Choose...
+                All Vocab
             @endif
             </option>
             
+            <option value="AllVocab">All Vocab</option>
             @foreach($vocabs as $vocab)
             <option value="{{ $vocab->vocab }}" >{{ $vocab->vocab }}</option>
             @endforeach
@@ -25,16 +26,14 @@
             <div class="input-group-append">
             <button type="submit" class="btn btn-outline-secondary">Search</button>
             </div>&nbsp;&nbsp;&nbsp;&nbsp;
-
         </div>
         </div>
-
 
         </div>
         </form>
 
         @if($querymatchs)
-        <table  class="table table-hover" style="margin:3%" id="indicatortable" >
+        <table  class="table table-hover table-bordered" id="indicatortable" >
                     <thead>
                         <tr>
                         <th scope="col">Vocab</th>

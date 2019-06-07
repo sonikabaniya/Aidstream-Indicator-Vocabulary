@@ -10,13 +10,13 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($indicators as $indicator)
+    @foreach($vocabs as $key => $vocab)
     
     <tr>
-      <th scope="row">{{ $row_num++ }}</th>
-      <td><a href="{{ route('searchroute') }}?query1={{ $indicator->vocab }}">{{ $indicator->vocab }}</a></td>
-      <td>{{ $indicator->count }}</td>
-      <td><a href="#">{{$indicator -> standardlink }}</a></td>
+      <th scope="row">{{ $key+1 }}</th>
+      <td><a href="{{ route('searchroute') }}?query1={{ $vocab->vocab }}">{{ $vocab->vocab }}</a></td>
+      <td>{{ count($vocab->indicators) }}</td>
+      <td><a href="{{ $vocab-> standardlink }}">{{ $vocab-> standardlink }}</a></td>
     </tr>
     @endforeach
   </tbody>

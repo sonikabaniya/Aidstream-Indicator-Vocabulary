@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Testtable extends Migration
+class Vocabulary extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class Testtable extends Migration
      */
     public function up()
     {
-        Schema::create('testtable', function (Blueprint $table) {
+        Schema::create('Vocabulary', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('indicator');
-            $table->timestamps();
+            $table->string('vocab');
         });
     }
 
@@ -28,7 +26,6 @@ class Testtable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('testtable');
-        
+        Schema::dropIfExists('Vocabulary');
     }
 }

@@ -1,3 +1,19 @@
+#indicatortable_wrapper {
+    padding: 0px 40px;
+}   
+
 .indVocabDiv{
-    margin:5%;
+    margin: 20px 40px;
 }
+
+.indVocabDiv--title {
+    font-size: 20px;
+    margin-bottom: 40px;
+    margin-left: 30px;    
+}
+
+.indVocabDiv .indVocabDiv__table-first{
+    width: 50%;
+    margin-bottom: 80px;
+}
+
