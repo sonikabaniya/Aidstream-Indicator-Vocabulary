@@ -5,24 +5,17 @@
       
       <div class="input-group" >
         <div class="input-group mb-3" style="width:30%;" >
-          <select class="custom-select" id="inputGroupSelect02"  name="query1">
-            <option selected style="display:none">
-            @if($flag==0)
-                {{ $query1 }}
-
-            @else
-                All Vocab
-            @endif
+          <select class="custom-select" id="inputGroupSelect02"  name="vocabid">
+            <option selected style="display:none" >
             </option>
             
-            <option value="AllVocab">All Vocab</option>
             @foreach($vocabs as $vocab)
-            <option value="{{ $vocab->vocab }}" >{{ $vocab->vocab }}</option>
+            <option value="{{ $vocab->vocab }}" {{$vocabid == $vocab->vocab ? 'selected' : ''}}>{{ $vocab->vocab }}</option>
             @endforeach
           </select>
             </div>
             <div style="width:20px; "></div>
-            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Choose any parameter or leave blank ..." name="query2">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Choose any parameter or leave blank ..." name="query">&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="input-group-append">
             <button type="submit" class="btn btn-outline-secondary">Search</button>
             </div>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -49,17 +42,17 @@
 
                         @foreach($querymatchs as $querymatch)
                     <tr>
-                        <td>{{ $querymatch->vocab }}</td>
+                        <td><a href="{{ route('individualvocabroute',['id' => $querymatch->vocabulary->id]) }}">{{ $querymatch->vocabulary->vocab }}</a></td>
                         <td>{{ $querymatch->code }}</td>
                         <td>{{ $querymatch->title }}</td>
                         <td>{{ $querymatch->desc }}</td>
                         <td>{{ $querymatch->category }}</td>
-                        <td>{{ $querymatch->source }}</td>
+                        <td><a href="{{ $querymatch->source }}">{{ $querymatch->source }}</a></td>
                     </tr>
                         @endforeach
 
         @else
-                No results
+                No matching results found.
         
         @endif
 

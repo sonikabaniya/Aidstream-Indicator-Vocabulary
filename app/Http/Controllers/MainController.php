@@ -17,9 +17,9 @@ class MainController extends Controller
     public function sqlquery()
     {
         $vocab = Vocabulary::with('indicators')->get();
-        $indicators = DB::table('indicator')->select(DB::raw('DISTINCT vocab, count(vocab) as count,standardlink'))
-        ->groupBy('vocab','standardlink')
-        ->get();
+        // $indicators = DB::table('indicator')->select(DB::raw('DISTINCT vocab, count(vocab) as count,standardlink'))
+        // ->groupBy('vocab','standardlink')
+        // ->get();
         $row_num = 1;
         return view('welcome', ['vocabs' => $vocab,'row_num' => $row_num]);
     }
@@ -27,16 +27,22 @@ class MainController extends Controller
     public function searchquery($query = NULL, Request $request)
     {   
         $vocabs = Vocabulary::with('indicators')->select()->get();
-        $query1 = $request->get('query1', null);
-        $query2 = $request->get('query2') ? $request->get('query2') : "";
-        $mapquery1 = DB::table('Vocabulary')->select('id','vocab')->where('vocab','=',$query1)->first();
-        $querymatchs = [];
-        if($query1 || $query2){
-            $querymatchs =  DB::table('indicator')->select('vocab','code','title','desc','category','source')->where('vocab','like', $mapquery1->id)->orWhere('title','like',$query2)->get();
+        $vocabid = $request->get('vocabid', null);
+        if($vocabid == 'All Vocab'){
+            $vocabid= NULL;
         }
-        $flag=0;
+        $query = $request->get('query') ? $request->get('query') : "";
+        $indicatorsearch = $request->get('indicatorsearch', null);
 
-        return view('search', ["allindicator"=>[],'query1' => $query, 'vocabs' => $vocabs,'querymatchs' => $querymatchs, 'flag' -> $flag ]);
+        $mapquery1 = DB::table('Vocabulary')->select('id','vocab')->where('vocab','=',$vocabid)->first();
+        $querymatchs = [];
+        if($vocabid || $query){
+        $vocab = Vocabulary::with('indicators')->get();
+            $querymatchs =  Indicator::with('vocabulary')->where('vocab','like', $mapquery1->id)->orWhere('title','like',$query)->get();
+            // $vocabid = DB::table('Vocabulary')->select('vocab')->where('id','like', $mapquery1->id)->get();
+        }
+        
+        return view('search', ["allindicator"=>[],'vocabid' => $vocabid, 'vocabs' => $vocabs,'querymatchs' => $querymatchs,'vocabid'=>$vocabid]);
     }
 
     public function individualvocab($id)
@@ -51,10 +57,12 @@ class MainController extends Controller
 
     public function indicatorquery(Request $request)
     {
-        $query1 = $request->get('indicatorsearch', null);
-        $querymatch = DB::table('indicator')->select('vocab','code','title','desc','category','source')->where('title','like',"%$query1%")->get();
-        $flag=1;
-        return view('search', ['query1' =>$query1, 'vocabs' => [],'querymatchs' => $querymatch,'flag'=>$flag]);
+        $query = $request->get('indicatorsearch', null);
+        $querymatch = Indicator::with('vocabulary')->where('title','like',"%$query%")->get();
+        $vocabs = Vocabulary::with('indicators')->select()->get();
+
+      
+        return view('search', ['query' =>$query, 'vocabid' => [], 'vocabs' => $vocabs,'querymatchs' => $querymatch]);
 
     }
 

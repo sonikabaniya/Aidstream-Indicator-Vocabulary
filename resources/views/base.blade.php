@@ -15,7 +15,8 @@
   </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-        <a class="navbar-brand" href="#">Aidstream Indicator Vocabulary</a>
+        <a class="navbar-brand" href="{{ route('homeroute') }}">Home</a>
+        <a class="navbar-brand" href="{{ route('aboutus') }}">About Us</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

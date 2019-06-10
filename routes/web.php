@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/','MainController@sqlquery');
+Route::get('/','MainController@sqlquery')->name('homeroute');
+
+Route::get('/aboutus', function()
+{
+    return view('aboutus');
+})->name('aboutus');
 
 Route::post('/','MainController@indicatorquery')->name('indicatorsearch');
 
@@ -20,5 +25,5 @@ Route::get('/index', function()
     return view('index');
 });
 
-Route::get('/search/{query?}','MainController@searchquery')->name('searchroute');
+Route::match(array('GET','POST'),'/search/{query?}','MainController@searchquery')->name('searchroute');
 Route::get('individualvocab/{id}','MainController@individualvocab')->name('individualvocabroute');
